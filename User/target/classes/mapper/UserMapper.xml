@@ -22,5 +22,13 @@
         select * from t_user where user_id = #{userID};
     </select>
 
+    <select id="checkUsernameExisting" parameterType="String" resultType="int">
+        select count(*) from t_user where username = #{username};
+    </select>
+
+    <select id="checkEmailExisting" parameterType="String" resultType="int">
+        select count(*) from t_user where email = #{email};
+    </select>
+
 
 </mapper>

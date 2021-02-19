@@ -15,4 +15,7 @@ public interface UserDao {
 
     User getUserById(@Param("id") long id);
 
+    int checkUsernameExisting(@Param("username") String username);
+
+    int checkEmailExisting(@Param("email") String email);
 }

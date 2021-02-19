@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create 2021-02-19 11:30
  */
 @SpringBootApplication
-public class UserService {
+public class UserMicroService {
     public static void main(String[] args) {
-        SpringApplication.run(UserService.class,args);
+        SpringApplication.run(UserMicroService.class,args);
     }
 }

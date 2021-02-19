@@ -18,4 +18,6 @@ public interface UserDao {
     int checkUsernameExisting(@Param("username") String username);
 
     int checkEmailExisting(@Param("email") String email);
+
+    User login(User user);
 }

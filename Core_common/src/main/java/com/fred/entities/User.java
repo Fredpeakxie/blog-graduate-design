@@ -18,4 +18,15 @@ public class User {
     private String nickname;//20
     private String introduction;//100
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserID=" + UserID +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", introduction='" + introduction + '\'' +
+                '}';
+    }
 }

@@ -5,14 +5,14 @@
 <mapper namespace="com.fred.repository.UserDao">
 
     <resultMap id="UserBaseResultMap" type="com.fred.entities.User">
-        <id column="userID" property="user_id" jdbcType="BIGINT"/>
+        <id column="user_id" property="userID" jdbcType="BIGINT"/>
         <id column="username" property="username" jdbcType="VARCHAR"/>
-        <id column="PASSWORD" property="PASSWORD" jdbcType="VARCHAR"/>
+        <id column="password" property="password" jdbcType="VARCHAR"/>
         <id column="email" property="email" jdbcType="VARCHAR"/>
         <id column="nickname" property="nickname" jdbcType="VARCHAR"/>
         <id column="introduction" property="introduction" jdbcType="VARCHAR"/>
     </resultMap>
-
+<!--自动将 自增得到的userID写回之前的object中-->
     <insert id="createUser" parameterType="User" useGeneratedKeys="true" keyProperty="userID">
         insert into t_user(username,password,email) values(#{username},#{password},#{email});
     </insert>
@@ -28,6 +28,10 @@
 
     <select id="checkEmailExisting" parameterType="String" resultType="int">
         select count(*) from t_user where email = #{email};
+    </select>
+
+    <select id="login" parameterType="User" resultMap="UserBaseResultMap">
+        select * from t_user where username = #{username} and password = #{password};
     </select>
 
 

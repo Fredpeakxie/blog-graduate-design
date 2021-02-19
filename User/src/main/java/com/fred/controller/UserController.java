@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
     @Resource
     private IUserService userServiceImpl;
 
@@ -26,6 +27,12 @@ public class UserController {
     public CommonResult<User> registry(@RequestBody User user){
         log.info("registry");
         return userServiceImpl.registry(user);
+    }
+
+    @PostMapping("/login")
+    public CommonResult<User> login(@RequestBody User user){
+        log.info("login");
+        return userServiceImpl.login(user);
     }
 
 }

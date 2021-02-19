@@ -44,6 +44,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public CommonResult<User> login(User user) {
-        return null;
+        CommonResult<User> commonResult = new CommonResult<>();
+        //检验要求用户名密码均不为空 前端做校验
+        // 待办 可以使用邮箱登录
+        User login = userDao.login(user);
+        if(login!=null){
+            commonResult.addCode(200).addMessage("登录成功").addData(login);
+        }else {
+            commonResult.addCode(400).addMessage("用户名或密码输入错误").addData(user);
+        }
+        return commonResult;
     }
 }

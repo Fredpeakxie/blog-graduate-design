@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/Article/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Article/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core_common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core_common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Eureka/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/User/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/User/src/main/resources" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

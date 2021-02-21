@@ -19,6 +19,7 @@ public class Article {
     private Long type;
     private String title;//50
     private Long readNum;
+    private String articleContent;//longtext
 
     //非表中字段需要跨表查询
     private Long likeNum;//t_like

@@ -18,5 +18,13 @@
         values(#{userID},#{type},#{title},#{articleContent});
     </insert>
 
+    <select id="selectArticleByNum" parameterType="Long" resultMap="ArticleBaseResultMap">
+        select * from t_article limit #{start},#{num};
+    </select>
+
+    <update id="readNumAdd" parameterType="Long">
+        UPDATE t_article SET read_num=read_num+1 WHERE article_id=#{articleID};
+    </update>
+
 
 </mapper>

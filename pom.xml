@@ -13,6 +13,7 @@
         <module>Eureka</module>
         <module>User</module>
         <module>Article</module>
+        <module>Comment</module>
     </modules>
 
     <properties>

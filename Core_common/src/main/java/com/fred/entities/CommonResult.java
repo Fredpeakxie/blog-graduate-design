@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommonResult<T> {
-    private Integer code;
+    private RetCode code;
     private String  message;
     private T       data;
 
-    public CommonResult(Integer code,String message){
+    public CommonResult(RetCode code,String message){
         this(code,message,null);
     }
 
     //链式调用
-    public CommonResult<T> addCode(Integer code){
+    public CommonResult<T> addCode(RetCode code){
         this.setCode(code);
         return this;
     }

@@ -2,6 +2,7 @@ package com.fred;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @auther fred
@@ -10,6 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ArticleMicroService {
     public static void main(String[] args) {
-        SpringApplication.run(ArticleMicroService.class,args);
+        ConfigurableApplicationContext ioc = SpringApplication.run(ArticleMicroService.class, args);
+        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
+        for (String name : beanDefinitionNames) {
+            System.out.println(name);
+        }
     }
 }

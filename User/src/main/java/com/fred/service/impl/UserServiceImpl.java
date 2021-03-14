@@ -1,6 +1,7 @@
 package com.fred.service.impl;
 
 import com.fred.entities.CommonResult;
+import com.fred.entities.RetCode;
 import com.fred.entities.User;
 import com.fred.repository.UserDao;
 import com.fred.service.IUserService;
@@ -32,26 +33,26 @@ public class UserServiceImpl implements IUserService {
         if((usernameRepeat == 0)&&(emailRepeat == 0)){
             //创建用户
             userDao.createUser(user);
-            return commonResult.addCode(200).addMessage("创建用户成功").addData(user);
+            return commonResult.addCode(RetCode.OK).addMessage("创建用户成功").addData(user);
         }else if((usernameRepeat != 0)&&(emailRepeat == 0)){
-            return commonResult.addCode(400).addMessage("用户名重复,请更换用户名后重试").addData(user);
+            return commonResult.addCode(RetCode.REPETITIVE_USERNAME).addMessage("用户名重复,请更换用户名后重试").addData(user);
         }else if((usernameRepeat == 0)&&(emailRepeat != 0)){
-            return commonResult.addCode(400).addMessage("邮箱重复,请更换邮箱后重试").addData(user);
+            return commonResult.addCode(RetCode.REPETITIVE_EMAIL).addMessage("邮箱重复,请更换邮箱后重试").addData(user);
         }else{
-            return commonResult.addCode(400).addMessage("用户名和邮箱均重复,请更换用户名和邮箱后重试").addData(user);
+            return commonResult.addCode(RetCode.REPETITIVE_USERNAME_EMAIL).addMessage("用户名和邮箱均重复,请更换用户名和邮箱后重试").addData(user);
         }
     }
 
     @Override
     public CommonResult<User> login(User user) {
         CommonResult<User> commonResult = new CommonResult<>();
-        //检验要求用户名密码均不为空 前端做校验
         // 待办 可以使用邮箱登录
         User login = userDao.login(user);
         if(login!=null){
-            commonResult.addCode(200).addMessage("登录成功").addData(login);
+            login.setPassword("pass");
+            commonResult.addCode(RetCode.OK).addMessage("登录成功").addData(login);
         }else {
-            commonResult.addCode(400).addMessage("用户名或密码输入错误").addData(user);
+            commonResult.addCode(RetCode.WRONG_PASSWORD).addMessage("用户名或密码输入错误").addData(user);
         }
         return commonResult;
     }

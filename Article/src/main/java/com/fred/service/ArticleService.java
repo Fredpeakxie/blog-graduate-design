@@ -1,6 +1,7 @@
 package com.fred.service;
 
 import com.fred.entities.Article;
+import com.fred.entities.ArticleDetail;
 import com.fred.entities.CommonResult;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface ArticleService {
      * @return
      */
     CommonResult<List<Article>> getArticle(Long start,Long num);
+
+    CommonResult<List<ArticleDetail>> getArticleDetailList(Long start, Long num);
 
     /**
      * 当用户读取文章时怎加文章阅读数

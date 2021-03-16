@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.fred.repository.ArticleDetailDao">
+
+    <resultMap id="ArticleDetailMap" type="com.fred.entities.ArticleDetail">
+        <id column="article_id" property="articleID" jdbcType="BIGINT"/>
+        <id column="author_id" property="authorID" jdbcType="BIGINT"/>
+        <id column="title" property="title" jdbcType="VARCHAR"/>
+        <id column="type" property="type" jdbcType="BIGINT"/>
+        <id column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <id column="read_num" property="readNum" jdbcType="BIGINT"/>
+        <id column="like_num" property="likeNum" jdbcType="BIGINT"/>
+        <id column="mark_num" property="markNum" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="getArticleDetailList" parameterType="Long" resultMap="ArticleDetailMap">
+        select * from v_article_detail ORDER BY read_num + like_num*4 + mark_num*10 + article_id*0.1 DESC limit #{start},#{num};
+    </select>
+
+
+
+</mapper>

@@ -9,13 +9,12 @@
         <id column="user_id" property="userID" jdbcType="BIGINT"/>
         <id column="type" property="type" jdbcType="BIGINT"/>
         <id column="title" property="title" jdbcType="VARCHAR"/>
-        <id column="article_content" property="articleContent" jdbcType="LONGVARCHAR"/>
         <id column="read_num" property="readNum" jdbcType="BIGINT"/>
     </resultMap>
     <!--自动将 自增得到的userID写回之前的object中-->
     <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleID">
-        insert into t_article(user_id,type,title,article_content)
-        values(#{userID},#{type},#{title},#{articleContent});
+        insert into t_article(user_id,title)
+        values(#{userID},#{title});
     </insert>
 
     <select id="selectArticleByNum" parameterType="Long" resultMap="ArticleBaseResultMap">

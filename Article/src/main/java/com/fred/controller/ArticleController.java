@@ -1,6 +1,7 @@
 package com.fred.controller;
 
 import com.fred.entities.Article;
+import com.fred.entities.ArticleDetail;
 import com.fred.entities.CommonResult;
 import com.fred.service.ArticleService;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,14 @@ public class ArticleController {
         return articleServiceImpl.publishArticle(article);
     }
 
-    @GetMapping("/getArticle/{start}/{num}")
+    @GetMapping("/Article/{start}/{num}")
     public CommonResult<List<Article>> getArticleByNum(@PathVariable("start") Long start,@PathVariable("num") Long num){
         return articleServiceImpl.getArticle(start,num);
+    }
+
+    @GetMapping("/ArticleDetail/{start}/{num}")
+    public CommonResult<List<ArticleDetail>> getArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num){
+        return articleServiceImpl.getArticleDetailList(start,num);
     }
 
     @PutMapping("/read/{articleID}")

@@ -8,20 +8,21 @@ import java.util.List;
 
 /**
  * @auther fred
- * @create 2021-02-19 8:59
+ * @create 2021-03-16 20:18
+ * 对应视图 v_articledetail
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
-
+public class ArticleDetail {
     private Long articleID;
-    private Long userID;
-    private Long type;
+    private Long authorID;
     private String title;//50
+    private Long type;
+    private String nickname;//t_user
+    private String articleContent;//html
     private Long readNum;
-    private String articleContent;//longtext
-    private List<String> pics;
-
+    private Long likeNum;//t_like
+    private Long markNum;//t_mark
 }

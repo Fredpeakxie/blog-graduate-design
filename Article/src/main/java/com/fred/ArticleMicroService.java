@@ -12,9 +12,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ArticleMicroService {
     public static void main(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(ArticleMicroService.class, args);
-        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
-        for (String name : beanDefinitionNames) {
-            System.out.println(name);
-        }
+        //打印自动注入信息
+//        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
+//        for (String name : beanDefinitionNames) {
+//            System.out.println(name);
+//        }
     }
 }

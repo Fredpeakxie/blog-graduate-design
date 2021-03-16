@@ -33,12 +33,16 @@ public class UserServiceImpl implements IUserService {
         if((usernameRepeat == 0)&&(emailRepeat == 0)){
             //创建用户
             userDao.createUser(user);
+            log.info("创建用户成功");
             return commonResult.addCode(RetCode.OK).addMessage("创建用户成功").addData(user);
         }else if((usernameRepeat != 0)&&(emailRepeat == 0)){
+            log.info("用户名重复");
             return commonResult.addCode(RetCode.REPETITIVE_USERNAME).addMessage("用户名重复,请更换用户名后重试").addData(user);
         }else if((usernameRepeat == 0)&&(emailRepeat != 0)){
+            log.info("邮箱重复");
             return commonResult.addCode(RetCode.REPETITIVE_EMAIL).addMessage("邮箱重复,请更换邮箱后重试").addData(user);
         }else{
+            log.info("用户名和邮箱均重复");
             return commonResult.addCode(RetCode.REPETITIVE_USERNAME_EMAIL).addMessage("用户名和邮箱均重复,请更换用户名和邮箱后重试").addData(user);
         }
     }
@@ -48,10 +52,13 @@ public class UserServiceImpl implements IUserService {
         CommonResult<User> commonResult = new CommonResult<>();
         // 待办 可以使用邮箱登录
         User login = userDao.login(user);
+        log.info(login.toString());
         if(login!=null){
             login.setPassword("pass");
+            log.info(user.getUsername()+" 登录成功");
             commonResult.addCode(RetCode.OK).addMessage("登录成功").addData(login);
         }else {
+            log.info(user.getUsername()+" 用户名或密码输入错误");
             commonResult.addCode(RetCode.WRONG_PASSWORD).addMessage("用户名或密码输入错误").addData(user);
         }
         return commonResult;

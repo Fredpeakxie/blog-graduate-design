@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class User {
 
-    private Long UserID;
+    private Long userID;
     private String username;//20
     private String password;//20
     private String email;//20
@@ -21,7 +21,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "UserID=" + UserID +
+                "userID=" + userID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

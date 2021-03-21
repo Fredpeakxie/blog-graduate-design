@@ -20,5 +20,14 @@
     </select>
 
 
+    <select id="getMarkedArticleDetailList" parameterType="Long" resultMap="ArticleDetailMap">
+        select ad.* from v_article_detail as ad
+        inner join t_mark as m
+        on ad.article_id = m.article_id
+        where m.user_id = #{userId}
+        ORDER BY read_num + like_num*4 + mark_num*10 + ad.article_id*0.1 DESC limit #{start},#{num};
+    </select>
+
+
 
 </mapper>

@@ -59,6 +59,12 @@ public class ArticleServiceImpl implements ArticleService {
         return commonResult.addCode(RetCode.OK).addMessage("成功获得20条信息").addData(articleDetails);
     }
 
+    @Override
+    public CommonResult<List<ArticleDetail>> getMarkedArticleDetailList(Long start, Long num, Long userId) {
+        CommonResult<List<ArticleDetail>> commonResult = new CommonResult<>();
+        List<ArticleDetail> articleDetails = articleDetailDao.getMarkedArticleDetailList(start, num,userId);
+        return commonResult.addCode(RetCode.OK).addMessage("成功获得20条信息").addData(articleDetails);
+    }
 
 
     @Override

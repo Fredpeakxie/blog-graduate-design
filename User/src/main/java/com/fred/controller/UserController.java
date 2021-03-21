@@ -2,6 +2,7 @@ package com.fred.controller;
 
 import com.fred.entities.CommonResult;
 import com.fred.entities.User;
+import com.fred.entities.UserDetail;
 import com.fred.repository.UserDao;
 import com.fred.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,12 @@ public class UserController {
     public CommonResult<User> login(@RequestBody User user){
         log.info("login");
         return userServiceImpl.login(user);
+    }
+
+    @GetMapping("/detail/{userId}")
+    public CommonResult<UserDetail> detail(@PathVariable Long userId){
+        log.info("user detail"+userId);
+        return userServiceImpl.detail(userId);
     }
 
 }

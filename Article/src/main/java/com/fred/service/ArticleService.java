@@ -37,4 +37,5 @@ public interface ArticleService {
      */
     CommonResult<String> readArticle(Long articleID);
 
+    CommonResult<List<ArticleDetail>> getMarkedArticleDetailList(Long start, Long num, Long userId);
 }

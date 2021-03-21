@@ -24,7 +24,7 @@ import java.util.List;
 @Slf4j
 public class ArticleRepo {
 
-    public static final String PROJECT_URI = "E:\\moonker";
+    public static final String PROJECT_URI = "moonker";
     public static final String BLOG_URI = "/article/";
     public static final String ARTICLE_PIC = "/pic";
 
@@ -90,6 +90,7 @@ public class ArticleRepo {
 
     private boolean saveHtml(String articleIdS, String html) {
         String path = PROJECT_URI + BLOG_URI + "mb" + articleIdS + ".html";
+//        String path = "mb" + articleIdS + ".html";
         log.info("path : "+path);
         RandomAccessFile inOut = null;
         try {

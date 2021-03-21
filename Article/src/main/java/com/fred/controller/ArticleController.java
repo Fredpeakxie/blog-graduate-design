@@ -36,10 +36,11 @@ public class ArticleController {
         return articleServiceImpl.getArticleDetailList(start,num);
     }
 
-    @PutMapping("/read/{articleID}")
-    public CommonResult<String> readNumAdd(@PathVariable Long articleID){
-        return articleServiceImpl.readArticle(articleID);
+    @GetMapping("/ArticleDetail/{start}/{num}/{userId}")
+    public CommonResult<List<ArticleDetail>> getMarkedArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num,@PathVariable("userId") Long userId){
+        return articleServiceImpl.getMarkedArticleDetailList(start,num,userId);
     }
+
 
     @PostMapping("/testing")
     public CommonResult<Long> publishArticleBatch(@RequestBody Article article){
@@ -50,5 +51,12 @@ public class ArticleController {
         }
         return null;
     }
+
+    @PutMapping("/readNumAdd/{articleID}")
+    public String readNumAdd(@PathVariable Long articleID){
+        articleServiceImpl.readArticle(articleID);
+        return "";
+    }
+
 
 }

@@ -4,6 +4,7 @@ import com.fred.entities.CommonResult;
 import com.fred.entities.RetCode;
 import com.fred.entities.User;
 import com.fred.entities.UserDetail;
+import com.fred.repository.ImageRepo;
 import com.fred.repository.UserDao;
 import com.fred.repository.UserDetailDao;
 import com.fred.service.IUserService;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserDetailDao userDetailDao;
+
+    @Resource
+    private ImageRepo imageRepo;
 
     @Override
     public CommonResult<User> registry(User user) {
@@ -76,5 +80,21 @@ public class UserServiceImpl implements IUserService {
         return userDetailCommonResult.addCode(RetCode.OK)
                 .addData(userDetail)
                 .addMessage("get user detail");
+    }
+
+    @Override
+    public CommonResult<User> updateUser(User user) {
+        CommonResult<User> commonResult = new CommonResult<>();
+        log.info("user:"+user);
+        userDao.updateUserById(user);
+        return commonResult.addCode(RetCode.OK)
+                .addMessage("user updated");
+    }
+
+    @Override
+    public CommonResult<String> setPortrait(Long userId, String bitmap) {
+        CommonResult<String> commonResult = new CommonResult<>();
+        RetCode retCode = imageRepo.upload(userId, bitmap);
+        return commonResult.addCode(retCode);
     }
 }

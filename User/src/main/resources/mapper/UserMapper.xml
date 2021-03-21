@@ -34,5 +34,11 @@
         select * from t_user where username = #{username} and password = #{password};
     </select>
 
+    <insert id="updateUserById" parameterType="User" keyProperty="userID">
+        update t_user
+        set email = #{email},nickname = #{nickname},introduction = #{introduction}
+        where user_id = #{userID};
+    </insert>
+
 
 </mapper>

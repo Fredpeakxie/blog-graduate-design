@@ -17,4 +17,8 @@ public interface IUserService {
     CommonResult<User> login(User user);
 
     CommonResult<UserDetail> detail(Long userId);
+
+    CommonResult<User> updateUser(User user);
+
+    CommonResult<String> setPortrait(Long userId, String bitmap);
 }

@@ -20,4 +20,6 @@ public interface UserDao {
     int checkEmailExisting(@Param("email") String email);
 
     User login(User user);
+
+    Integer updateUserById(User user);
 }

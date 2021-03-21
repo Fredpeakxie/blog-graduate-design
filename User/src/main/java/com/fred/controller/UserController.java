@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @auther fred
@@ -55,6 +56,20 @@ public class UserController {
     public CommonResult<UserDetail> detail(@PathVariable Long userId){
         log.info("user detail"+userId);
         return userServiceImpl.detail(userId);
+    }
+
+    @PostMapping
+    public CommonResult<User> updateUser(@RequestBody User user){
+        log.info("update user");
+        return userServiceImpl.updateUser(user);
+    }
+
+    @PostMapping("/image")
+    public CommonResult<String> setPortrait(@RequestBody Map<String,Object> map){
+        log.info("set portrait");
+        Long userId = ((Integer)map.get("userId")).longValue();
+        String bitmap = (String)map.get("bitmap");
+        return userServiceImpl.setPortrait(userId,bitmap);
     }
 
 }

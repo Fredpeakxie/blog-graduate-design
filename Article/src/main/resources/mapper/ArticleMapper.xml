@@ -5,16 +5,16 @@
 <mapper namespace="com.fred.repository.ArticleDao">
 
     <resultMap id="ArticleBaseResultMap" type="com.fred.entities.Article">
-        <id column="article_id" property="articleID" jdbcType="BIGINT"/>
-        <id column="user_id" property="userID" jdbcType="BIGINT"/>
+        <id column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <id column="author_id" property="authorId" jdbcType="BIGINT"/>
         <id column="type" property="type" jdbcType="BIGINT"/>
         <id column="title" property="title" jdbcType="VARCHAR"/>
         <id column="read_num" property="readNum" jdbcType="BIGINT"/>
     </resultMap>
     <!--自动将 自增得到的userID写回之前的object中-->
-    <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleID">
-        insert into t_article(user_id,title)
-        values(#{userID},#{title});
+    <insert id="insertArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleId">
+        insert into t_article(author_id,title)
+        values(#{authorId},#{title});
     </insert>
 
     <select id="selectArticleByNum" parameterType="Long" resultMap="ArticleBaseResultMap">
@@ -22,7 +22,7 @@
     </select>
 
     <update id="readNumAdd" parameterType="Long">
-        UPDATE t_article SET read_num=read_num+1 WHERE article_id=#{articleID};
+        UPDATE t_article SET read_num=read_num+1 WHERE article_id=#{articleId};
     </update>
 
 

@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDetail {
-    private Long articleID;
-    private Long authorID;
+    private Long articleId;
+    private Long authorId;
     private String title;//50
     private Long type;
     private String nickname;//t_user

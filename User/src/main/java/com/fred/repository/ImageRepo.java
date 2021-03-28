@@ -1,14 +1,11 @@
 package com.fred.repository;
 
 import com.fred.entities.RetCode;
-import com.fred.entities.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Base64;
-import java.util.Map;
 
 /**
  * @auther fred

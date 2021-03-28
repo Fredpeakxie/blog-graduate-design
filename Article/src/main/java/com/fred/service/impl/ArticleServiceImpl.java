@@ -40,7 +40,7 @@ public class ArticleServiceImpl implements ArticleService {
     public CommonResult<Long> publishArticle(Article article) {
         CommonResult<Long> commonResult = new CommonResult<>();
         articleDao.insertArticle(article);
-        commonResult.addData(article.getArticleID());
+        commonResult.addData(article.getArticleId());
         commonResult = articleRepo.saveArticle(article,commonResult);
         return commonResult;
     }

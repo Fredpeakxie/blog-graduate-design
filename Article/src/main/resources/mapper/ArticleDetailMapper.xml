@@ -5,8 +5,8 @@
 <mapper namespace="com.fred.repository.ArticleDetailDao">
 
     <resultMap id="ArticleDetailMap" type="com.fred.entities.ArticleDetail">
-        <id column="article_id" property="articleID" jdbcType="BIGINT"/>
-        <id column="author_id" property="authorID" jdbcType="BIGINT"/>
+        <id column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <id column="author_id" property="authorId" jdbcType="BIGINT"/>
         <id column="title" property="title" jdbcType="VARCHAR"/>
         <id column="type" property="type" jdbcType="BIGINT"/>
         <id column="nickname" property="nickname" jdbcType="VARCHAR"/>

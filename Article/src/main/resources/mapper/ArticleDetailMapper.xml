@@ -19,7 +19,6 @@
         select * from v_article_detail ORDER BY read_num + like_num*4 + mark_num*10 + article_id*0.1 DESC limit #{start},#{num};
     </select>
 
-
     <select id="getMarkedArticleDetailList" parameterType="Long" resultMap="ArticleDetailMap">
         select ad.* from v_article_detail as ad
         inner join t_mark as m
@@ -28,6 +27,8 @@
         ORDER BY read_num + like_num*4 + mark_num*10 + ad.article_id*0.1 DESC limit #{start},#{num};
     </select>
 
-
+    <select id="getArticleDetail" parameterType="Long" resultMap="ArticleDetailMap">
+        select * from v_article_detail where article_id = #{articleId};
+    </select>
 
 </mapper>

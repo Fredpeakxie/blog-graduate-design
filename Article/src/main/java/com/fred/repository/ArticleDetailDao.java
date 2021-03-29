@@ -17,4 +17,6 @@ public interface ArticleDetailDao {
     List<ArticleDetail> getArticleDetailList(@Param("start") Long start, @Param("num") Long num);
 
     List<ArticleDetail> getMarkedArticleDetailList(@Param("start") Long start, @Param("num") Long num, @Param("userId") Long userId);
+
+    ArticleDetail getArticleDetail(Long articleId);
 }

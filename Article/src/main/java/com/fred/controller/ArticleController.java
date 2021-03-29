@@ -58,5 +58,11 @@ public class ArticleController {
         return "";
     }
 
+    @GetMapping("/search/{from}/{size}/{queryText}")
+    public CommonResult<List<ArticleDetail>> searchArticle(@PathVariable Integer from,@PathVariable Integer size,
+                                                           @PathVariable String queryText){
+        return articleServiceImpl.searchArticle(from,size,queryText);
+    }
+
 
 }

@@ -38,4 +38,6 @@ public interface ArticleService {
     CommonResult<String> readArticle(Long articleID);
 
     CommonResult<List<ArticleDetail>> getMarkedArticleDetailList(Long start, Long num, Long userId);
+
+    CommonResult<List<ArticleDetail>> searchArticle(Integer from, Integer size, String queryText);
 }

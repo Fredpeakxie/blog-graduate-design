@@ -21,7 +21,8 @@ public enum RetCode {
     USER_MARK_ADD_FAIL(512),
     USER_LIKE_REMOVE_FAIL(513),
     USER_MARK_REMOVE_FAIL(514),
-    USER_PORTRAIT_SAVE_FAIL(521)
+    USER_PORTRAIT_SAVE_FAIL(521),
+    SEARCH_ARTICLE_FAIL(531)
     ;
 
     private final Integer code;

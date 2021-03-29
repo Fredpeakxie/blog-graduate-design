@@ -2,6 +2,7 @@ package com.fred;
 
 import com.alibaba.fastjson.JSON;
 import com.fred.config.ESConfig;
+import com.fred.entities.ArticleDetail;
 import com.fred.entities.User;
 import org.assertj.core.data.Index;
 import org.elasticsearch.action.index.IndexRequest;
@@ -118,6 +119,38 @@ public class ESBasicTest {
         Avg balanceAggBalance = aggregations.get("balanceAgg");
         System.out.println("avgBalance:"+balanceAggBalance.getValue());
 //        aggregations.get("a");
+    }
+
+    @Test
+    public void articleSearchRequest() throws IOException {
+        //1.创建检索请求
+        SearchRequest searchRequest = new SearchRequest();
+        //指定索引
+        searchRequest.indices("moonker");
+        //指定DSL，检索条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        1.1 检索条件
+        searchSourceBuilder.query(QueryBuilders.multiMatchQuery("spring","title","nickname")).from(0).size(10);
+        System.out.println("searchCondition: "+searchSourceBuilder.toString());
+        searchRequest.source(searchSourceBuilder);
+        //2. 执行检索
+        SearchResponse search = client.search(searchRequest, ESConfig.COMMON_OPTIONS);
+        System.out.println("searchResult"+search.toString());
+
+        //3.结果分析
+        JSON.parseObject(search.toString(), Map.class);
+        //3.1 获取所有查到的数据 对应 "hits":
+        SearchHits hits = search.getHits();
+        SearchHit[] eachHits = hits.getHits();
+        //3.2 转换为对象
+        for (SearchHit hit: eachHits) {
+//            hit.getIndex();hit.getType();hit.getId();
+            String jsonString = hit.getSourceAsString();
+            System.out.println(jsonString);
+            ArticleDetail articleDetail = JSON.parseObject(jsonString, ArticleDetail.class);
+            System.out.println("articleDetail:"+articleDetail);
+        }
+
     }
 
     /**

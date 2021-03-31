@@ -81,6 +81,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public CommonResult<List<ArticleDetail>> getMyArticleDetailList(Long start, Long num, Long authorId) {
+        CommonResult<List<ArticleDetail>> commonResult = new CommonResult<>();
+        List<ArticleDetail> articleDetails = articleDetailDao.getMyArticleDetailList(start, num,authorId);
+        return commonResult.addCode(RetCode.OK).addMessage("成功获得20条信息").addData(articleDetails);
+    }
+
+    @Override
     public CommonResult<List<ArticleDetail>> searchArticle(Integer from, Integer size, String queryText){
         try {
             List<ArticleDetail> articleDetails = articleESRepo.searchArticle(from, size, queryText);
@@ -88,6 +95,17 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (IOException e) {
             log.warn(e.getMessage());
             return new CommonResult<List<ArticleDetail>>(RetCode.SEARCH_ARTICLE_FAIL,"fail",null);
+        }
+    }
+
+    @Override
+    public CommonResult<List<String>> suggest(String queryText) {
+        try {
+            List<String> strings = articleESRepo.suggestTitle(queryText);
+            return new CommonResult<List<String>>(RetCode.OK,"suggest ok",strings);
+        } catch (IOException e) {
+            log.warn(e.getMessage());
+            return new CommonResult<List<String>>(RetCode.SEARCH_ARTICLE_FAIL,"fail",null);
         }
     }
 

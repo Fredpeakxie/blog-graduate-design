@@ -150,7 +150,6 @@ public class ESBasicTest {
             ArticleDetail articleDetail = JSON.parseObject(jsonString, ArticleDetail.class);
             System.out.println("articleDetail:"+articleDetail);
         }
-
     }
 
     /**

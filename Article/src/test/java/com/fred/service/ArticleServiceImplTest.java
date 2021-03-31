@@ -28,4 +28,11 @@ public class ArticleServiceImplTest {
         System.out.println(commonResult);
         commonResult.getData().forEach(System.out::println);
     }
+
+    @Test
+    public void suggestTest(){
+        CommonResult<List<ArticleDetail>> commonResult = articleService.searchArticle(0, 10, "fred");
+        System.out.println(commonResult);
+        commonResult.getData().forEach(System.out::println);
+    }
 }

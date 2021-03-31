@@ -23,8 +23,16 @@ public class RepoTest {
     private ArticleESRepo articleESRepo;
 
     @Test
-    public void test() throws IOException {
+    public void searchTest() throws IOException {
         List<ArticleDetail> articleDetails = articleESRepo.searchArticle(0, 5, "spring");
         articleDetails.forEach(System.out::println);
     }
+
+    @Test
+    public void suggestTest() throws IOException {
+        List<String> strings = articleESRepo.suggestTitle("spr");
+        strings.forEach(System.out::println);
+    }
+
+
 }

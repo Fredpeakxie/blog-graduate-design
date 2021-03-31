@@ -10,8 +10,19 @@ import com.fred.service.ArticleService;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.completion.CompletionSuggestionBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +31,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.fred.repository.ArticleESRepo.INDEX;
 
 /**
  * @auther fred
@@ -116,4 +131,25 @@ public class ArticleInsertES {
 //        System.out.println(adJString);
 //        indexRequest.source(adJString,XContentType.JSON);
 //    }
+    @Test
+    public void sugTitle() throws IOException {
+        String query = "spring";
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(INDEX);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion("titleSuggest",
+                SuggestBuilders.completionSuggestion("sugTitle").prefix(query));
+        searchSourceBuilder.suggest(suggestBuilder);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest, ESConfig.COMMON_OPTIONS);
+
+        Suggest suggest = search.getSuggest();
+        suggest.getSuggestion("titleSuggest").getEntries().forEach(
+                queryResult -> queryResult.getOptions().forEach(
+                        record -> {
+                            System.out.println(record.getText());
+                        }
+                )
+        );
+    }
 }

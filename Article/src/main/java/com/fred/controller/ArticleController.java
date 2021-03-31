@@ -36,9 +36,14 @@ public class ArticleController {
         return articleServiceImpl.getArticleDetailList(start,num);
     }
 
-    @GetMapping("/ArticleDetail/{start}/{num}/{userId}")
+    @GetMapping("/ArticleDetail/mark/{start}/{num}/{userId}")
     public CommonResult<List<ArticleDetail>> getMarkedArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num,@PathVariable("userId") Long userId){
         return articleServiceImpl.getMarkedArticleDetailList(start,num,userId);
+    }
+
+    @GetMapping("/ArticleDetail/my/{start}/{num}/{userId}")
+    public CommonResult<List<ArticleDetail>> getMyArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num,@PathVariable("userId") Long authorId){
+        return articleServiceImpl.getMyArticleDetailList(start,num,authorId);
     }
 
 
@@ -62,6 +67,12 @@ public class ArticleController {
     public CommonResult<List<ArticleDetail>> searchArticle(@PathVariable Integer from,@PathVariable Integer size,
                                                            @PathVariable String queryText){
         return articleServiceImpl.searchArticle(from,size,queryText);
+    }
+
+    @GetMapping("/suggest/{queryText}")
+
+    public CommonResult<List<String>> searchArticle(@PathVariable String queryText){
+        return articleServiceImpl.suggest(queryText);
     }
 
 

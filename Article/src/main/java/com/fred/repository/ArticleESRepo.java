@@ -17,6 +17,9 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -50,13 +53,10 @@ public class ArticleESRepo {
     }
 
     public List<ArticleDetail> searchArticle(int from,int size,String queryText) throws IOException {
-        //1.创建检索请求
         SearchRequest searchRequest = new SearchRequest();
-        //指定索引
         searchRequest.indices(INDEX);
-        //指定DSL，检索条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//        1.1 检索条件 score,markNum,likeNum,articleId 对排名的影响
+        //TODO 检索条件 score,markNum,likeNum,articleId 对排名的影响
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(queryText,"title","nickname"))
                 .from(from).size(size)
                 .sort("markNum",SortOrder.DESC)
@@ -64,15 +64,9 @@ public class ArticleESRepo {
                 .sort("readNum",SortOrder.DESC)
                 .sort("articleId",SortOrder.DESC);
         searchRequest.source(searchSourceBuilder);
-        //2. 执行检索
         SearchResponse search = client.search(searchRequest, ESConfig.COMMON_OPTIONS);
-
-        //3.结果分析
-        JSON.parseObject(search.toString(), Map.class);
-        //3.1 获取所有查到的数据 对应 "hits":
         SearchHits hits = search.getHits();
         SearchHit[] eachHits = hits.getHits();
-        //3.2 转换为对象
         List<ArticleDetail> articleDetails = new ArrayList<>();
         for (SearchHit hit: eachHits) {
             String jsonString = hit.getSourceAsString();
@@ -81,5 +75,30 @@ public class ArticleESRepo {
         }
         return articleDetails;
     }
+
+    public List<String> suggestTitle(String queryText) throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(INDEX);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        SuggestBuilder suggestBuilder = new SuggestBuilder().addSuggestion("titleSuggest",
+                SuggestBuilders.completionSuggestion("sugTitle").prefix(queryText));
+        searchSourceBuilder.suggest(suggestBuilder);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest, ESConfig.COMMON_OPTIONS);
+
+        List<String> strings = new ArrayList<>();
+        Suggest suggest = search.getSuggest();
+        suggest.getSuggestion("titleSuggest").getEntries().forEach(
+                queryResult -> {
+                    List<? extends Suggest.Suggestion.Entry.Option> options = queryResult.getOptions();
+                    for (int i = 0; i < 5 && i < options.size(); i++) {
+                        strings.add(options.get(i).getText().toString());
+                    }
+                }
+        );
+        return strings;
+    }
+
+
 
 }

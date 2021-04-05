@@ -94,6 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
             return new CommonResult<List<ArticleDetail>>(RetCode.OK,"search ok",articleDetails);
         } catch (IOException e) {
             log.warn(e.getMessage());
+            e.printStackTrace();
             return new CommonResult<List<ArticleDetail>>(RetCode.SEARCH_ARTICLE_FAIL,"fail",null);
         }
     }

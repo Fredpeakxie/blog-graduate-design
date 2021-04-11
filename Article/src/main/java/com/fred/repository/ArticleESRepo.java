@@ -43,7 +43,7 @@ public class ArticleESRepo {
     public static final String TYPE = "article";
 
     public void addArticle(ArticleDetail ad) throws IOException {
-        IndexRequest indexRequest = new IndexRequest(INDEX,TYPE);
+        IndexRequest indexRequest = new IndexRequest(INDEX);
         indexRequest.id(ad.getArticleId().toString());
         ArticleDetailES articleDetailES = new ArticleDetailES(ad);
         String adJString = JSON.toJSONString(articleDetailES);

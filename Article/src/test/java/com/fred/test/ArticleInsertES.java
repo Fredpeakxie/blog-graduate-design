@@ -89,7 +89,7 @@ public class ArticleInsertES {
 
         List<ArticleDetail> articleDetailList = articleService.getArticleDetailList(0L, 20L).getData();
         for (ArticleDetail ad : articleDetailList) {
-            IndexRequest indexRequest = new IndexRequest("moonker","article");
+            IndexRequest indexRequest = new IndexRequest("moonker");
             indexRequest.id(ad.getArticleId().toString());
             ArticleDetailES articleDetailES = new ArticleDetailES(ad);
             String adJString = JSON.toJSONString(articleDetailES);

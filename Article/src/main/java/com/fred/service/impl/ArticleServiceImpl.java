@@ -10,9 +10,6 @@ import com.fred.repository.ArticleESRepo;
 import com.fred.repository.ArticleRepo;
 import com.fred.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +17,6 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
-import static com.fred.repository.ArticleRepo.ARTICLE_PIC;
 
 /**
  * @auther fred
@@ -47,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
     public CommonResult<Long> publishArticle(Article article) {
         CommonResult<Long> commonResult = new CommonResult<>();
         articleDao.insertArticle(article);
-        log.info("save:"+article.toString());
+        log.info("save:articleId "+article.getArticleId()+"authorId: "+article.getAuthorId());
         commonResult.addData(article.getArticleId());
         commonResult = articleRepo.saveArticle(article,commonResult);
         ArticleDetail articleDetail = articleDetailDao.getArticleDetail(article.getArticleId());
@@ -55,6 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleESRepo.addArticle(articleDetail);
         } catch (IOException e) {
             //TODO throw exception and GlobalExceptionHandler
+            log.warn("articleESRepoSaveFail: "+article.getArticleId());
         }
         return commonResult;
     }

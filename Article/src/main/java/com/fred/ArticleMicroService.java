@@ -17,14 +17,6 @@ public class ArticleMicroService {
         System.out.println(currentWorkingDirectory);
         System.out.println(System.getProperty("user.dir"));
         System.out.println(System.getProperty("file.separator"));
-        //打印自动注入信息
-        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
-        for (String name : beanDefinitionNames) {
-            System.out.println(name);
-        }
-        DispatcherServlet dispatcherServlet = (DispatcherServlet)ioc.getBean("dispatcherServlet");
-        System.out.println("---------------------");
-        System.out.println(dispatcherServlet.getContextAttribute());
-//        System.out.println(dispatcherServlet.getHandlerMappings().size());
+
     }
 }

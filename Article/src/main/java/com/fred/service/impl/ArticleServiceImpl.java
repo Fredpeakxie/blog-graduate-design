@@ -107,6 +107,18 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    @Override
+    public CommonResult<String> saveArticlesToELK(Integer num) {
+        List<ArticleDetail> articleDetailList = getArticleDetailList(0L, num.longValue()).getData();
+        try {
+            articleESRepo.saveArticles(articleDetailList);
+            return new CommonResult<String>(RetCode.OK,"saveArticlesToELK succeed","ok");
+        } catch (IOException e) {
+            log.warn("article save to ELK fail");
+            return new CommonResult<String>(RetCode.OK,"saveArticlesToELK succeed","ok");
+        }
+    }
+
 
     @Override
     public CommonResult<String> readArticle(Long articleID) {

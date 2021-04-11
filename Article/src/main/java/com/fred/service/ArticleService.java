@@ -44,4 +44,6 @@ public interface ArticleService {
     CommonResult<List<String>> suggest(String queryText);
 
     CommonResult<List<ArticleDetail>> getMyArticleDetailList(Long start, Long num, Long authorId);
+
+    CommonResult<String> saveArticlesToELK(Integer num);
 }

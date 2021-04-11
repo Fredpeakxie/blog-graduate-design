@@ -70,9 +70,13 @@ public class ArticleController {
     }
 
     @GetMapping("/suggest/{queryText}")
-
     public CommonResult<List<String>> searchArticle(@PathVariable String queryText){
         return articleServiceImpl.suggest(queryText);
+    }
+
+    @PostMapping("/manager/saveArticlesToELK/{num}")
+    public CommonResult<String> saveArticleToELK(@PathVariable Integer num){
+        return articleServiceImpl.saveArticlesToELK(num);
     }
 
 

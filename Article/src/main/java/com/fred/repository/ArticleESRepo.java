@@ -5,6 +5,7 @@ import com.fred.config.ESConfig;
 import com.fred.entities.ArticleDetail;
 import com.fred.entities.mapper.ArticleDetailES;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -100,5 +101,17 @@ public class ArticleESRepo {
     }
 
 
-
+    public void saveArticles(List<ArticleDetail> articleDetailList) throws IOException {
+        BulkRequest bulkRequest = new BulkRequest();
+        for (ArticleDetail ad : articleDetailList) {
+            IndexRequest indexRequest = new IndexRequest(INDEX);
+            indexRequest.id(ad.getArticleId().toString());
+            ArticleDetailES articleDetailES = new ArticleDetailES(ad);
+            String adJString = JSON.toJSONString(articleDetailES);
+            indexRequest.source(adJString, XContentType.JSON);
+            bulkRequest.add(indexRequest);
+        }
+        client.bulk(bulkRequest,ESConfig.COMMON_OPTIONS);
+        System.out.println("bulk:"+bulkRequest.toString());
+    }
 }

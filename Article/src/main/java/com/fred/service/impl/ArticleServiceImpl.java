@@ -42,7 +42,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public CommonResult<Long> publishArticle(Article article) {
         CommonResult<Long> commonResult = new CommonResult<>();
-        articleDao.insertArticle(article);
+        upsertArticle(article);
         log.info("save:articleId "+article.getArticleId()+"authorId: "+article.getAuthorId());
         commonResult.addData(article.getArticleId());
         commonResult = articleRepo.saveArticle(article,commonResult);
@@ -55,6 +55,31 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return commonResult;
     }
+
+    private void upsertArticle(Article article) {
+        if (article.getArticleId() != null)
+            articleDao.updateArticle(article);
+        else
+            articleDao.insertArticle(article);
+    }
+
+//    @Transactional
+//    @Override
+//    public CommonResult<Long> updateArticle(Article article) {
+//        CommonResult<Long> commonResult = new CommonResult<>();
+//        articleDao.updateArticle(article);
+//        log.info("update:articleId "+article.getArticleId()+"authorId: "+article.getAuthorId());
+//        commonResult.addData(article.getArticleId());
+//        commonResult = articleRepo.saveArticle(article,commonResult);
+//        ArticleDetail articleDetail = articleDetailDao.getArticleDetail(article.getArticleId());
+//        try {
+//            articleESRepo.addArticle(articleDetail);
+//        } catch (IOException e) {
+//            //TODO throw exception and GlobalExceptionHandler
+//            log.warn("articleESRepoSaveFail: "+article.getArticleId());
+//        }
+//        return null;
+//    }
 
     @Override
     public CommonResult<List<Article>> getArticle(Long start, Long num) {

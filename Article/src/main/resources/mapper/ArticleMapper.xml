@@ -17,6 +17,12 @@
         values(#{authorId},#{title});
     </insert>
 
+    <insert id="updateArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="articleId">
+        update t_article
+        set title=#{title}
+        where article_id = #{articleId};
+    </insert>
+
     <select id="selectArticleByNum" parameterType="Long" resultMap="ArticleBaseResultMap">
         select * from t_article limit #{start},#{num};
     </select>

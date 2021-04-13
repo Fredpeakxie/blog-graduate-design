@@ -18,4 +18,6 @@ public interface ArticleDao {
     List<Article> selectArticleByNum(@Param("start") Long start,@Param("num") Long num);
 
     int readNumAdd(Long articleID);
+
+    int updateArticle(Article article);
 }

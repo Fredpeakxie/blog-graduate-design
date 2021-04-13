@@ -26,6 +26,11 @@ public class ArticleController {
         return articleServiceImpl.publishArticle(article);
     }
 
+//    @PostMapping("/update")
+//    public CommonResult<Long> updateArticle(@RequestBody Article article){
+//        return articleServiceImpl.updateArticle(article);
+//    }
+
     @GetMapping("/Article/{start}/{num}")
     public CommonResult<List<Article>> getArticleByNum(@PathVariable("start") Long start,@PathVariable("num") Long num){
         return articleServiceImpl.getArticle(start,num);

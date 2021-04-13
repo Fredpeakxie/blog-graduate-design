@@ -32,6 +32,7 @@ public class ArticleRepo {
         //0获取存储的位置
         String articleIdS = String.format("%05d", article.getArticleId());
         //1解析html 使pic匹配 html中的image(具体参见原有android代码和server代码)使用jsoup
+        log.info("articleContent: " + article.getArticleContent());
         Document doc = Jsoup.parse(article.getArticleContent());
         Elements imgs = doc.getElementsByTag("img");
         List<String> pics = article.getPics();

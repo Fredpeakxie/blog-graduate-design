@@ -24,21 +24,6 @@ public class UserController {
     @Resource
     private IUserService userServiceImpl;
 
-    @GetMapping("/test")
-    public String test(){
-        log.info("test:get");
-        return "test method:get";
-    }
-
-    @PostMapping("/test")
-    public User testPost(){
-        log.info("test:post");
-        User user = new User();
-        user.setUserID(100L);
-        user.setNickname("fred");
-        return user;
-    }
-
 
     @PostMapping("/registry")
     public CommonResult<User> registry(@RequestBody User user){

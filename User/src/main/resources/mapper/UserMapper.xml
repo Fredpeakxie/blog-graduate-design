@@ -14,7 +14,7 @@
     </resultMap>
 <!--自动将 自增得到的userID写回之前的object中-->
     <insert id="createUser" parameterType="User" useGeneratedKeys="true" keyProperty="userID">
-        insert into t_user(username,password,email) values(#{username},#{password},#{email});
+        insert into t_user(username,password,email,nickname) values(#{username},#{password},#{email},#{username});
     </insert>
 
 

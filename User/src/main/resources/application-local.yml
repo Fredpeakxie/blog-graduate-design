@@ -3,7 +3,7 @@ server:
 
 accessFile:
   portrait:
-    resourceHandler: /moonker/portrait/* #匹配需要拦截的URL
+    resourceHandler: /moonker/portrait/** #匹配需要拦截的URL
     location: E:/moonkerwd/moonker/portrait/  #本地文件夹
 
 spring:

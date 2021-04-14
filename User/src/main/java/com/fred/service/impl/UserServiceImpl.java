@@ -61,7 +61,6 @@ public class UserServiceImpl implements IUserService {
         CommonResult<User> commonResult = new CommonResult<>();
         // 待办 可以使用邮箱登录
         User login = userDao.login(user);
-        log.info(login.toString());
         if(login!=null){
             login.setPassword("pass");
             log.info(user.getUsername()+" 登录成功");

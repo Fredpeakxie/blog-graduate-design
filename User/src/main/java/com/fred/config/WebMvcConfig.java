@@ -1,9 +1,9 @@
 package com.fred.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * @auther fred
@@ -27,5 +27,25 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //匹配到resourceHandler,将URL映射至location,也就是本地文件夹
         registry.addResourceHandler(portraitResourceHandler).addResourceLocations("file:///" + portraitLocation);
+    }
+
+    @Bean
+    public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
+        WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
+            @Override
+            public void addViewControllers(ViewControllerRegistry registry) {
+                registry.addViewController("/").setViewName("login");
+                registry.addViewController("/index.html").setViewName("login");
+                registry.addViewController("/main.html").setViewName("main");
+            }
+
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                //对于静态资源SpringBoot已经做好静态资源映射
+//                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+//                .excludePathPatterns("/index.html","/","/user/login");
+            }
+        };
+        return adapter;
     }
 }

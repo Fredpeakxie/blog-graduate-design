@@ -6,6 +6,8 @@ import com.fred.entities.ArticleDetail;
 import com.fred.entities.mapper.ArticleDetailES;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -113,5 +115,12 @@ public class ArticleESRepo {
         }
         client.bulk(bulkRequest,ESConfig.COMMON_OPTIONS);
         System.out.println("bulk:"+bulkRequest.toString());
+    }
+
+    public void deleteArticle(Integer articleId) throws IOException {
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX);
+        deleteRequest.id(articleId.toString());
+        DeleteResponse delete = client.delete(deleteRequest, ESConfig.COMMON_OPTIONS);
+        log.warn(delete.toString());
     }
 }

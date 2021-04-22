@@ -25,4 +25,5 @@ public class ArticleDetail {
     private Long readNum;
     private Long likeNum;//t_like
     private Long markNum;//t_mark
+    private String href;//backOffice
 }

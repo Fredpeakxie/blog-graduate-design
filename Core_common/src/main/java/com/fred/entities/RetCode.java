@@ -25,7 +25,8 @@ public enum RetCode {
     SEARCH_ARTICLE_FAIL(531),
     SUGGEST_TITLE_FAIL(532),
     COMMENT_PUBLISH_FAIL(541),
-    SAVE_ARTICLES_TO_ELK_FAIL(551)
+    SAVE_ARTICLES_TO_ELK_FAIL(551),
+    MANAGER_REGISTRY_FAIL(561)
     ;
 
     private final Integer code;

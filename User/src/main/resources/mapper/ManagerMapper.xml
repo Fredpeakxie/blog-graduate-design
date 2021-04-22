@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.fred.repository.ManagerDao">
+
+    <resultMap id="ManagerBaseResultMap" type="com.fred.entities.Manager">
+        <id column="manager_id" property="managerId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+<!--自动将 自增得到的userID写回之前的object中-->
+    <insert id="createManager" parameterType="Manager" useGeneratedKeys="true" keyProperty="managerId">
+        insert into t_manager(username,password,email) values(#{username},#{password},#{email});
+    </insert>
+
+    <select id="countManager" parameterType="Manager" resultType="Integer">
+        select count(*)
+        from t_manager
+        where username = #{username}
+        or email = #{email};
+    </select>
+
+
+<!--    <select id="getUserById" parameterType="Long" resultMap="UserBaseResultMap">-->
+<!--        select * from t_user where user_id = #{userID};-->
+<!--    </select>-->
+
+<!--    <select id="checkUsernameExisting" parameterType="String" resultType="int">-->
+<!--        select count(*) from t_user where username = #{username};-->
+<!--    </select>-->
+
+<!--    <select id="checkEmailExisting" parameterType="String" resultType="int">-->
+<!--        select count(*) from t_user where email = #{email};-->
+<!--    </select>-->
+
+<!--    <select id="login" parameterType="User" resultMap="UserBaseResultMap">-->
+<!--        select * from t_user where username = #{username} and password = #{password};-->
+<!--    </select>-->
+
+<!--    <insert id="updateUserById" parameterType="User" keyProperty="userID">-->
+<!--        update t_user-->
+<!--        set email = #{email},nickname = #{nickname},introduction = #{introduction}-->
+<!--        where user_id = #{userID};-->
+<!--    </insert>-->
+
+
+</mapper>

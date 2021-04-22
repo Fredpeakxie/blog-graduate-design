@@ -46,6 +46,8 @@ public interface ArticleService {
     CommonResult<List<ArticleDetail>> getMyArticleDetailList(Long start, Long num, Long authorId);
 
     CommonResult<String> saveArticlesToELK(Integer num);
+
+    void deleteArticle(Integer articleId);
 //
 //    CommonResult<Long> updateArticle(Article article);
 }

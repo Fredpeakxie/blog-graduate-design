@@ -4,10 +4,7 @@ import com.fred.entities.Article;
 import com.fred.entities.ArticleDetail;
 import com.fred.entities.CommonResult;
 import com.fred.entities.RetCode;
-import com.fred.repository.ArticleDao;
-import com.fred.repository.ArticleDetailDao;
-import com.fred.repository.ArticleESRepo;
-import com.fred.repository.ArticleRepo;
+import com.fred.repository.*;
 import com.fred.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,6 +34,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     private ArticleESRepo articleESRepo;
+
+    @Resource
+    private LikeDao likeDao;
+
+    @Resource
+    private MarkDao markDao;
 
     @Transactional
     @Override
@@ -141,6 +144,19 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (IOException e) {
             log.warn("article save to ELK fail");
             return new CommonResult<String>(RetCode.OK,"saveArticlesToELK succeed","ok");
+        }
+    }
+
+    @Transactional
+    @Override
+    public void deleteArticle(Integer articleId) {
+        articleDao.deleteArticle(articleId);
+        likeDao.removeArticle(articleId);
+        markDao.removeArticle(articleId);
+        try {
+            articleESRepo.deleteArticle(articleId);
+        } catch (IOException e) {
+            System.out.println("删除失败");
         }
     }
 

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @auther fred
@@ -96,4 +97,12 @@ public class UserServiceImpl implements IUserService {
         RetCode retCode = imageRepo.upload(userId, bitmap);
         return commonResult.addCode(retCode);
     }
+
+    @Override
+    public List<UserDetail> getUserList() {
+        List<UserDetail> users = userDetailDao.getUsers();
+        return users;
+    }
+
+
 }

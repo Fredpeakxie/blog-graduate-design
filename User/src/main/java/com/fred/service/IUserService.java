@@ -3,8 +3,8 @@ package com.fred.service;
 import com.fred.entities.CommonResult;
 import com.fred.entities.User;
 import com.fred.entities.UserDetail;
-import com.fred.repository.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @auther fred
@@ -21,4 +21,6 @@ public interface IUserService {
     CommonResult<User> updateUser(User user);
 
     CommonResult<String> setPortrait(Long userId, String bitmap);
+
+    List<UserDetail> getUserList();
 }

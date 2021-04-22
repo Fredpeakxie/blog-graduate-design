@@ -20,4 +20,6 @@ public interface ArticleDao {
     int readNumAdd(Long articleID);
 
     int updateArticle(Article article);
+
+    void deleteArticle(Integer articleId);
 }

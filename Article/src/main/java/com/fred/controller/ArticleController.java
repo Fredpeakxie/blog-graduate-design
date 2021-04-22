@@ -84,5 +84,10 @@ public class ArticleController {
         return articleServiceImpl.saveArticlesToELK(num);
     }
 
+    @DeleteMapping("/manager/{articleId}")
+    public void deleteArticle(@PathVariable Integer articleId){
+        articleServiceImpl.deleteArticle(articleId);
+    }
+
 
 }

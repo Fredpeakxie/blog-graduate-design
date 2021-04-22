@@ -21,7 +21,9 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.fred.entities
 
-
+path:
+  ipAddress: 121.40.48.185
+  article: http://121.40.48.185:9001/article
 #eureka:
 #  client:
 #    #是否将自己注册进EurekaServer

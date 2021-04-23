@@ -1,20 +1,13 @@
 package com.fred.controller;
 
 import com.fred.entities.ArticleDetail;
-import com.fred.entities.CommonResult;
-import com.fred.entities.User;
 import com.fred.entities.UserDetail;
+import com.fred.service.BackOfficeService;
 import com.fred.service.IUserService;
-import com.fred.service.impl.UserServiceImpl;
-import com.fred.tools.JsonTools;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -32,16 +25,10 @@ import java.util.Map;
 public class BackOfficeController {
 
     @Resource
-    private RestTemplate restTemplate;
-
-    @Resource
     private IUserService userService;
 
-    @Value("${path.ipAddress}")
-    public String IP_ADDRESS;
-
-    @Value("${path.article}")
-    public String ARTICLE_URL;
+    @Resource
+    private BackOfficeService backOfficeService;
 
 
     @PostMapping(value = "/login")
@@ -49,58 +36,40 @@ public class BackOfficeController {
                         @RequestParam("password") String password,
                         Map<String,Object> map,
                         HttpSession session){
-        //TODO service
-        if(!StringUtils.isEmpty(username) && "123456".equals(password)){
+        if(backOfficeService.backOfficeLogin(username,password)>0){
             //登录成功
             session.setAttribute("loginUser",username);
             return "redirect:/backOffice/articles";
         }else {
             map.put("msg","用户名密码错误");
-            return "login";
+            return "/login";
         }
     }
 
     @GetMapping("/articles")
     public String articleList(ModelMap map){
-        //TODO service
-        String adListCRJson = restTemplate.getForObject(ARTICLE_URL + "/ArticleDetail/"+0+"/"+100, String.class);
-        CommonResult<List<ArticleDetail>> adListCR = JsonTools.toADListCommonResult(adListCRJson);
-        adListCR.getData().forEach((articleDetail)->{
-            articleDetail.setHref("http://"+IP_ADDRESS+":9001/moonker/article/mb"+String.format("%05d",articleDetail.getArticleId())+".html");
-        });
-
-        map.addAttribute("articles",adListCR.getData());
-        return "article/list";
+        List<ArticleDetail> adList = backOfficeService.getArticleList();
+        map.addAttribute("articles",adList);
+        return "backOffice/article/list";
     }
 
     @GetMapping("/articles/search")
     public String articleList(@RequestParam String query,ModelMap map){
-        //TODO service
-        String adListCRJson = restTemplate.getForObject(ARTICLE_URL + "/search/"+0+"/"+100+"/"+query, String.class);
-        CommonResult<List<ArticleDetail>> adListCR = JsonTools.toADListCommonResult(adListCRJson);
-        adListCR.getData().forEach((articleDetail)->{
-            articleDetail.setHref("http://"+IP_ADDRESS+":9001/moonker/article/mb"+String.format("%05d",articleDetail.getArticleId())+".html");
-        });
-        map.addAttribute("articles",adListCR.getData());
-        return "article/list";
+        List<ArticleDetail> adList = backOfficeService.getArticleList(query);
+        map.addAttribute("articles",adList);
+        return "backOffice/article/list";
     }
 
     @GetMapping("/articles/{userId}")
     public String articleList(@PathVariable Integer userId, ModelMap map){
-        //TODO service
-        String adListCRJson = restTemplate.getForObject(ARTICLE_URL + "/ArticleDetail/my/"+0+"/"+100+"/"+userId, String.class);
-        CommonResult<List<ArticleDetail>> adListCR = JsonTools.toADListCommonResult(adListCRJson);
-        adListCR.getData().forEach((articleDetail)->{
-            articleDetail.setHref("http://"+IP_ADDRESS+":9001/moonker/article/mb"+String.format("%05d",articleDetail.getArticleId())+".html");
-        });
-
-        map.addAttribute("articles",adListCR.getData());
-        return "article/list";
+        List<ArticleDetail> adList = backOfficeService.getArticleList(userId);
+        map.addAttribute("articles",adList);
+        return "backOffice/article/list";
     }
 
     @DeleteMapping("/article/{id}")
-    public String deleteEmployee(@PathVariable("id") Integer id){
-        restTemplate.delete(ARTICLE_URL + "/manager/"+id);
+    public String deleteArticle(@PathVariable("id") Integer id){
+        backOfficeService.deleteArticle(id);
         return "redirect:/backOffice/articles";
     }
 
@@ -108,7 +77,7 @@ public class BackOfficeController {
     public String userList(ModelMap map){
         List<UserDetail> udList = userService.getUserList();
         map.addAttribute("users",udList);
-        return "user/list";
+        return "backOffice/user/list";
     }
 
 

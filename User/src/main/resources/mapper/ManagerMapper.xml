@@ -23,28 +23,22 @@
         or email = #{email};
     </select>
 
+    <select id="login" parameterType="String" resultType="Integer">
+        select count(*)
+        from t_manager
+        where username = #{username}
+        and password = #{password};
+    </select>
 
-<!--    <select id="getUserById" parameterType="Long" resultMap="UserBaseResultMap">-->
-<!--        select * from t_user where user_id = #{userID};-->
-<!--    </select>-->
+    <select id="getManagers" resultMap="ManagerBaseResultMap">
+        select *
+        from t_manager
+    </select>
 
-<!--    <select id="checkUsernameExisting" parameterType="String" resultType="int">-->
-<!--        select count(*) from t_user where username = #{username};-->
-<!--    </select>-->
-
-<!--    <select id="checkEmailExisting" parameterType="String" resultType="int">-->
-<!--        select count(*) from t_user where email = #{email};-->
-<!--    </select>-->
-
-<!--    <select id="login" parameterType="User" resultMap="UserBaseResultMap">-->
-<!--        select * from t_user where username = #{username} and password = #{password};-->
-<!--    </select>-->
-
-<!--    <insert id="updateUserById" parameterType="User" keyProperty="userID">-->
-<!--        update t_user-->
-<!--        set email = #{email},nickname = #{nickname},introduction = #{introduction}-->
-<!--        where user_id = #{userID};-->
-<!--    </insert>-->
+    <delete id="deleteManager" parameterType="Integer">
+        delete from t_manager
+        where manager_id = #{managerId}
+    </delete>
 
 
 </mapper>

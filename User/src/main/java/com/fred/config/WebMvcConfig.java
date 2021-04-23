@@ -1,5 +1,7 @@
 package com.fred.config;
 
+import com.fred.config.interceptor.AdminLoginHandlerInterceptor;
+import com.fred.config.interceptor.BackOfficeLoginHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,14 +38,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
-                registry.addViewController("/main.html").setViewName("main");
             }
 
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                //对于静态资源SpringBoot已经做好静态资源映射
-//                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/index.html","/","/user/login");
+                registry.addInterceptor(new BackOfficeLoginHandlerInterceptor()).addPathPatterns("/backOffice/**")
+                        .excludePathPatterns("/index.html","/","/backOffice/login");
+                registry.addInterceptor(new AdminLoginHandlerInterceptor()).addPathPatterns("/admin/**")
+                        .excludePathPatterns("/admin/login","/admin");
+
             }
         };
         return adapter;

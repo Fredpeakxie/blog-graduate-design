@@ -14,4 +14,8 @@ public interface CommentRepo {
     Integer saveComment(Comment comment);
 
     List<Comment> getCommentByArticleId(Long articleId);
+
+    void deleteByArticleId(Integer articleId);
+
+    List<Comment> getCommentByUserId(Long userId);
 }

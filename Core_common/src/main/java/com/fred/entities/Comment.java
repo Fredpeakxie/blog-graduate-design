@@ -18,5 +18,6 @@ public class Comment {
     private Long articleID;
     private String comment;
     private String userNickName;
+    private String title;
 
 }

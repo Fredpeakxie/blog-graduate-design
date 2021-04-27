@@ -34,4 +34,17 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> commentByArticleId = commentRepo.getCommentByArticleId(articleId);
         return new CommonResult<List<Comment>>(RetCode.OK,"comment got",commentByArticleId);
     }
+
+    @Override
+    public CommonResult<List<Comment>> getCommentsByUserId(Long userId) {
+        List<Comment> commentByArticleId = commentRepo.getCommentByUserId(userId);
+        return new CommonResult<List<Comment>>(RetCode.OK,"comment got",commentByArticleId);
+    }
+
+    @Override
+    public Boolean deleteCommentByArticleId(Integer articleId) {
+        commentRepo.deleteByArticleId(articleId);
+        return true;
+    }
+
 }

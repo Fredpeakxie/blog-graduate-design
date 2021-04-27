@@ -1,8 +1,6 @@
 package com.fred.service;
 
 import com.fred.entities.ArticleDetail;
-import com.fred.entities.CommonResult;
-import com.fred.entities.Manager;
 
 import java.util.List;
 

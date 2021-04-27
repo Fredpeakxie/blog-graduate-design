@@ -26,6 +26,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.fred.entities
 
+path:
+  ipAddress: 121.40.48.185
+  article: http://121.40.48.185:9001/article
+  comment: http://121.40.48.185:10001/comment
 
 #eureka:
 #  client:

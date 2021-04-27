@@ -13,4 +13,8 @@ public interface CommentService {
     CommonResult<String> publishComment(Comment comment);
 
     CommonResult<List<Comment>> getComments(Long articleId);
+
+    Boolean deleteCommentByArticleId(Integer articleId);
+
+    CommonResult<List<Comment>> getCommentsByUserId(Long userId);
 }

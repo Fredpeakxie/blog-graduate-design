@@ -48,7 +48,7 @@ public class BackOfficeServiceImpl implements BackOfficeService {
 
     @Override
     public List<ArticleDetail> getArticleList(Integer userId) {
-        String url = ARTICLE_URL + "/ArticleDetail/my/"+0+"/"+100+"/"+userId;
+        String url = ARTICLE_URL + "/ArticleDetail/"+0+"/"+100+"/"+userId;
         CommonResult<List<ArticleDetail>> adListCR = getADListCommonResult(url);
         return adListCR.getData();
     }

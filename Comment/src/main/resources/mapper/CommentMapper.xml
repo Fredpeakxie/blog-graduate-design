@@ -6,9 +6,10 @@
 
     <resultMap id="CommentBaseResultMap" type="com.fred.entities.Comment">
         <id column="user_id" property="userID" jdbcType="BIGINT"/>
-        <id column="article_id" property="userID" jdbcType="BIGINT"/>
+        <id column="article_id" property="articleID" jdbcType="BIGINT"/>
         <result column="comment" property="comment" jdbcType="VARCHAR"/>
         <result column="nickname" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
     </resultMap>
 
 <!--自动将 自增得到的userID写回之前的object中-->
@@ -20,5 +21,15 @@
         SELECT * FROM v_comment_detail
         WHERE article_id = #{articleID};
     </select>
+
+    <select id="getCommentByUserId" parameterType="Long" resultMap="CommentBaseResultMap">
+        SELECT * FROM v_comment_detail
+        WHERE user_id = #{userID};
+    </select>
+
+    <delete id="deleteByArticleId" parameterType="Integer">
+        delete from t_comment
+        where article_id = #{articleID};
+    </delete>
 
 </mapper>

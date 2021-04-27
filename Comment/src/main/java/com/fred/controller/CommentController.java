@@ -29,5 +29,15 @@ public class CommentController {
         return commentService.getComments(articleId);
     }
 
+    @GetMapping("/byUserId/{userId}")
+    public CommonResult<List<Comment>> getCommentsByUserId(@PathVariable Long userId){
+        return commentService.getCommentsByUserId(userId);
+    }
+
+    @DeleteMapping("/byArticleId/{articleId}")
+    public Boolean deleteCommentByArticleId(@PathVariable Integer articleId){
+        return commentService.deleteCommentByArticleId(articleId);
+    }
+
 
 }

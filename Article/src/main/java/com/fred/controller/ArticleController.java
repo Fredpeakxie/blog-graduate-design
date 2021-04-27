@@ -46,8 +46,8 @@ public class ArticleController {
         return articleServiceImpl.getMarkedArticleDetailList(start,num,userId);
     }
 
-    @GetMapping("/ArticleDetail/my/{start}/{num}/{userId}")
-    public CommonResult<List<ArticleDetail>> getMyArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num,@PathVariable("userId") Long authorId){
+    @GetMapping("/ArticleDetail/{start}/{num}/{userId}")
+    public CommonResult<List<ArticleDetail>> getUserArticleDetailByNum(@PathVariable("start") Long start, @PathVariable("num") Long num,@PathVariable("userId") Long authorId){
         return articleServiceImpl.getMyArticleDetailList(start,num,authorId);
     }
 

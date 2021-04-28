@@ -7,7 +7,7 @@
 <body>
 <!--引入topbar-->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#" th:href="@{/backOffice/articles}">[[${session.loginUser}]]</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#" th:href="@{/admin/backOffices}">[[${session.admin}]]</a>
         <form class="form-control form-control-dark w-100" th:action="@{/backOffice/articles/search}">
             <input name="query" id="searchInput" class="form-control-dark w-100" placeholder="Search" aria-label="Search">
         </form>

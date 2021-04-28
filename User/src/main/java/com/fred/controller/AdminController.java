@@ -6,6 +6,7 @@ import com.fred.entities.Manager;
 import com.fred.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,12 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/add")
+    public String toAddPage(Model model){
+        //来到添加页面
+        return "admin/backOffice/add";
+    }
+
 
     @GetMapping("/backOffices")
     public String managerList(ModelMap map){
@@ -65,6 +72,12 @@ public class AdminController {
     public CommonResult<Manager> registry(@RequestBody Manager manager){
         log.info("username:{},password:{}",manager.getUsername(),manager.getPassword());
         return adminService.backOfficeRegistry(manager);
+    }
+
+    @PostMapping("/backOffice")
+    public String addBackOffice(Manager manager){
+        adminService.backOfficeRegistry(manager);
+        return "redirect:/admin/backOffices";
     }
 
 }

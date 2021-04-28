@@ -17,4 +17,8 @@ public interface CommentService {
     Boolean deleteCommentByArticleId(Integer articleId);
 
     CommonResult<List<Comment>> getCommentsByUserId(Long userId);
+
+    CommonResult<List<Comment>> getComments();
+
+    CommonResult<Boolean> deleteComment(Integer commentId);
 }

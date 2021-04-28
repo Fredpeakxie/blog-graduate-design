@@ -85,8 +85,8 @@ public class ArticleController {
     }
 
     @DeleteMapping("/manager/{articleId}")
-    public void deleteArticle(@PathVariable Integer articleId){
-        articleServiceImpl.deleteArticle(articleId);
+    public CommonResult<Boolean> deleteArticle(@PathVariable Integer articleId){
+        return articleServiceImpl.deleteArticle(articleId);
     }
 
 

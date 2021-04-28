@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fred.entities.ArticleDetail;
+import com.fred.entities.Comment;
 import com.fred.entities.CommonResult;
 
 
@@ -36,7 +37,15 @@ public class JsonTools {
         return new CommonResult<List<ArticleDetail>>().addData(articleDetailList)
                 .addCode(commonResult.getCode())
                 .addMessage(commonResult.getMessage());
+    }
 
+    public static CommonResult<List<Comment>> toCommentListCommonResult(String jsonObjectString){
+        CommonResult commonResult = JSON.parseObject(jsonObjectString, CommonResult.class);
+        String listAd = JSONArray.toJSONString(commonResult.getData());
+        List<Comment> commentList = com.alibaba.fastjson.JSONObject.parseArray(listAd, Comment.class);
+        return new CommonResult<List<Comment>>().addData(commentList)
+                .addCode(commonResult.getCode())
+                .addMessage(commonResult.getMessage());
     }
 
 

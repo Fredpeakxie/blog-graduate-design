@@ -1,6 +1,7 @@
 package com.fred.service.impl;
 
 import com.fred.entities.ArticleDetail;
+import com.fred.entities.Comment;
 import com.fred.entities.CommonResult;
 import com.fred.repository.ManagerDao;
 import com.fred.service.BackOfficeService;
@@ -31,6 +32,9 @@ public class BackOfficeServiceImpl implements BackOfficeService {
 
     @Value("${path.article}")
     public String ARTICLE_URL;
+
+    @Value("${path.comment}")
+    public String COMMENT_URL;
 
     @Override
     public List<ArticleDetail> getArticleList() {
@@ -70,5 +74,37 @@ public class BackOfficeServiceImpl implements BackOfficeService {
     @Override
     public Integer backOfficeLogin(String username, String password) {
         return managerDao.login(username,password);
+    }
+
+    @Override
+    public List<Comment> getCommentList() {
+        String url = COMMENT_URL;
+        CommonResult<List<Comment>> commentListCommonResult = getCommentListCommonResult(url);
+        return commentListCommonResult.getData();
+    }
+
+    @Override
+    public List<Comment> getCommentListByUserId(Integer userId) {
+        String url = COMMENT_URL + "/byUserId/"+userId;
+        CommonResult<List<Comment>> commentListCommonResult = getCommentListCommonResult(url);
+        return commentListCommonResult.getData();
+    }
+
+    @Override
+    public List<Comment> getCommentListByArticleId(Integer articleId) {
+        String url = COMMENT_URL + "/"+articleId;
+        CommonResult<List<Comment>> commentListCommonResult = getCommentListCommonResult(url);
+        return commentListCommonResult.getData();
+    }
+
+    @Override
+    public void deleteComment(Integer commentId) {
+        restTemplate.delete(COMMENT_URL + "/"+commentId);
+    }
+
+    private CommonResult<List<Comment>> getCommentListCommonResult(String url) {
+        String commentListCRJson = restTemplate.getForObject(url, String.class);
+        CommonResult<List<Comment>> CommentListCR = JsonTools.toCommentListCommonResult(commentListCRJson);
+        return CommentListCR;
     }
 }

@@ -42,6 +42,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CommonResult<List<Comment>> getComments() {
+        List<Comment> comments = commentRepo.getComments();
+        return new CommonResult<List<Comment>>(RetCode.OK,"comment got",comments);
+    }
+
+    @Override
+    public CommonResult<Boolean> deleteComment(Integer commentId) {
+        commentRepo.deleteComment(commentId);
+        return new CommonResult<Boolean>().addMessage("succeed").addCode(RetCode.OK).addData(true);
+    }
+
+    @Override
     public Boolean deleteCommentByArticleId(Integer articleId) {
         commentRepo.deleteByArticleId(articleId);
         return true;

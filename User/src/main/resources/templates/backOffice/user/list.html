@@ -74,6 +74,7 @@
 									<td th:text="${user.markNum}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/backOffice/articles/}+${user.userId}" target="_self">查看文章</a>
+										<a class="btn btn-sm btn-success" th:href="@{/backOffice/comments/userId/}+${user.userId}" target="_self">查看评论</a>
 <!--										<button type="submit" th:attr="del_uri=@{/backOffice/article/}+${article.articleId}" class="btn btn-sm btn-danger deleteBtn">删除</button>-->
 									</td>
 								</tr>

@@ -1,6 +1,7 @@
 package com.fred.controller;
 
 import com.fred.entities.ArticleDetail;
+import com.fred.entities.Comment;
 import com.fred.entities.UserDetail;
 import com.fred.service.BackOfficeService;
 import com.fred.service.IUserService;
@@ -80,6 +81,31 @@ public class BackOfficeController {
         return "backOffice/user/list";
     }
 
+    @GetMapping("/comments/userId/{userId}")
+    public String CommentListByUserId(ModelMap map,@PathVariable Integer userId ){
+        List<Comment> commentList = backOfficeService.getCommentListByUserId(userId);
+        map.addAttribute("comments",commentList);
+        return "backOffice/comment/list";
+    }
 
+    @GetMapping("/comments/articleId/{articleId}")
+    public String CommentListByArticleId(ModelMap map,@PathVariable Integer articleId ){
+        List<Comment> commentList = backOfficeService.getCommentListByArticleId(articleId);
+        map.addAttribute("comments",commentList);
+        return "backOffice/comment/list";
+    }
+
+    @GetMapping("/comments")
+    public String CommentList(ModelMap map){
+        List<Comment> commentList = backOfficeService.getCommentList();
+        map.addAttribute("comments",commentList);
+        return "backOffice/comment/list";
+    }
+
+    @DeleteMapping("/comment/{commentId}")
+    public String CommentList(@PathVariable Integer commentId){
+        backOfficeService.deleteComment(commentId);
+        return "redirect:/backOffice/comments";
+    }
 
 }

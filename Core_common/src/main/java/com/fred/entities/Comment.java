@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Comment {
 
     //userID指发表评论的用户的userID
+    private Long commentId;
     private Long userID;
     private Long articleID;
     private String comment;

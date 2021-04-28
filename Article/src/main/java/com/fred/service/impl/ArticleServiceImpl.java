@@ -168,7 +168,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     @Override
-    public void deleteArticle(Integer articleId) {
+    public CommonResult<Boolean> deleteArticle(Integer articleId) {
         articleDao.deleteArticle(articleId);
         likeDao.removeArticle(articleId);
         markDao.removeArticle(articleId);
@@ -176,8 +176,10 @@ public class ArticleServiceImpl implements ArticleService {
         try {
             articleESRepo.deleteArticle(articleId);
         } catch (IOException e) {
-            System.out.println("删除失败");
+            log.info("删除失败");
+            return new CommonResult<Boolean>().addCode(RetCode.COMMENT_DELETE_FAIL).addMessage("删除失败").addData(false);
         }
+        return new CommonResult<Boolean>().addCode(RetCode.OK).addMessage("删除成功").addData(true);
     }
 
 

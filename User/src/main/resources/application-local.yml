@@ -26,6 +26,7 @@ mybatis:
 path:
   ipAddress: localhost
   article: http://localhost:9001/article
+  comment: http://localhost:10001/comment
 #eureka:
 #  client:
 #    #是否将自己注册进EurekaServer

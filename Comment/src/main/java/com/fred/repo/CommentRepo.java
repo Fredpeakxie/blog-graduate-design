@@ -2,6 +2,7 @@ package com.fred.repo;
 
 import com.fred.entities.Comment;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,8 @@ public interface CommentRepo {
     void deleteByArticleId(Integer articleId);
 
     List<Comment> getCommentByUserId(Long userId);
+
+    List<Comment> getComments();
+
+    void deleteComment(Integer commentId);
 }

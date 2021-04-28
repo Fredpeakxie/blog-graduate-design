@@ -5,8 +5,9 @@
 <mapper namespace="com.fred.repo.CommentRepo">
 
     <resultMap id="CommentBaseResultMap" type="com.fred.entities.Comment">
-        <id column="user_id" property="userID" jdbcType="BIGINT"/>
-        <id column="article_id" property="articleID" jdbcType="BIGINT"/>
+        <id column="comment_id" property="commentId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userID" jdbcType="BIGINT"/>
+        <result column="article_id" property="articleID" jdbcType="BIGINT"/>
         <result column="comment" property="comment" jdbcType="VARCHAR"/>
         <result column="nickname" property="userNickName" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
@@ -27,9 +28,18 @@
         WHERE user_id = #{userID};
     </select>
 
+    <select id="getComments" parameterType="Long" resultMap="CommentBaseResultMap">
+        SELECT * FROM v_comment_detail;
+    </select>
+
     <delete id="deleteByArticleId" parameterType="Integer">
         delete from t_comment
         where article_id = #{articleID};
+    </delete>
+
+    <delete id="deleteComment" parameterType="Integer">
+        delete from t_comment
+        where comment_id = #{commentId};
     </delete>
 
 </mapper>

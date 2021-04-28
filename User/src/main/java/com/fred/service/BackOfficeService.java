@@ -1,6 +1,7 @@
 package com.fred.service;
 
 import com.fred.entities.ArticleDetail;
+import com.fred.entities.Comment;
 
 import java.util.List;
 
@@ -18,4 +19,12 @@ public interface BackOfficeService {
     void deleteArticle(Integer id);
 
     Integer backOfficeLogin(String username, String password);
+
+    List<Comment> getCommentList();
+
+    List<Comment> getCommentListByUserId(Integer userId );
+
+    List<Comment> getCommentListByArticleId(Integer articleId);
+
+    void deleteComment(Integer commentId);
 }

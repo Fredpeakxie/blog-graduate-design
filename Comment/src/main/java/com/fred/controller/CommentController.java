@@ -25,7 +25,7 @@ public class CommentController {
     }
 
     @GetMapping("/{articleId}")
-    public CommonResult<List<Comment>> getComments(@PathVariable Long articleId){
+    public CommonResult<List<Comment>> getCommentsByArticleId(@PathVariable Long articleId){
         return commentService.getComments(articleId);
     }
 
@@ -34,9 +34,19 @@ public class CommentController {
         return commentService.getCommentsByUserId(userId);
     }
 
+    @GetMapping
+    public CommonResult<List<Comment>> getComments(){
+        return commentService.getComments();
+    }
+
     @DeleteMapping("/byArticleId/{articleId}")
     public Boolean deleteCommentByArticleId(@PathVariable Integer articleId){
         return commentService.deleteCommentByArticleId(articleId);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public CommonResult<Boolean> deleteCommentByCommentId(@PathVariable Integer commentId){
+        return commentService.deleteComment(commentId);
     }
 
 

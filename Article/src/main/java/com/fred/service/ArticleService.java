@@ -47,7 +47,7 @@ public interface ArticleService {
 
     CommonResult<String> saveArticlesToELK(Integer num);
 
-    void deleteArticle(Integer articleId);
+    CommonResult<Boolean> deleteArticle(Integer articleId);
 //
 //    CommonResult<Long> updateArticle(Article article);
 }
